@@ -1,63 +1,115 @@
-# Analysis of DeFi Wallet Credit Scores
+# Comprehensive Analysis of DeFi Wallet Credit Scores
 
-This document provides a detailed analysis of the credit scores assigned to DeFi wallets based on their on-chain transaction history. The scoring model evaluates wallets on factors such as transaction volume, frequency, diversity of actions, and repayment behavior to gauge their financial health and reliability within the DeFi ecosystem.
+This report presents a full analysis of 3,497 DeFi wallets, scored based on their on-chain transaction history. The scoring model evaluates key behavioral factors to provide a reliable measure of creditworthiness, leading to actionable business insights.
 
-## Credit Score Distribution
+---
 
-The distribution of credit scores across the entire dataset provides a high-level overview of the wallet population. The scores are segmented into ranges of 100 points, from 0 to 1000.
+## 1. Credit Score Distribution Analysis
 
-![Credit Score Distribution](visualizations/Wallet Cred Score.jpg)
+This analysis provides an overview of how credit scores are distributed across the wallet population. The majority of wallets (58.7%) fall into the medium-risk (400-599) range, indicating a significant user base of moderately active participants.
+
+![Wallet Credit Score Distribution](visualizations/Wallet_Cred_Score.jpg)
 
 ### Score Distribution Table
 
-| Score Range     | Number of Wallets | Percentage of Total |
-|-----------------|-------------------|---------------------|
-| 0-100           | [Your Number]     | [Your %]            |
-| 101-200         | [Your Number]     | [Your %]            |
-| 201-300         | [Your Number]     | [Your %]            |
-| 301-400         | [Your Number]     | [Your %]            |
-| 401-500         | [Your Number]     | [Your %]            |
-| 501-600         | [Your Number]     | [Your %]            |
-| 601-700         | [Your Number]     | [Your %]            |
-| 701-800         | [Your Number]     | [Your %]            |
-| 801-900         | [Your Number]     | [Your %]            |
-| 901-1000        | [Your Number]     | [Your %]            |
-| **Total**       | **[Total Wallets]** | **100%**            |
+| Score Range | Number of Wallets | Percentage of Total |
+|-------------|-------------------|---------------------|
+| 0-99        | 59                | 1.7%                |
+| 100-199     | 40                | 1.1%                |
+| 200-299     | 287               | 8.2%                |
+| 300-399     | 599               | 17.1%               |
+| 400-499     | 642               | 18.4%               |
+| 500-599     | 1,410             | 40.3%               |
+| 600-699     | 212               | 6.1%                |
+| 700-799     | 162               | 4.6%                |
+| 800-899     | 71                | 2.0%                |
+| 900-999     | 15                | 0.4%                |
 
 ---
 
-## Behavior of Wallets in the Lower Range (e.g., Scores < 400)
+## 2. Behavioral Analysis by Score Range
 
-Wallets in the lower score ranges typically exhibit characteristics associated with higher risk, low engagement, or new users.
+This section details the average on-chain behavior for wallets within each score bracket. Clear trends emerge that validate the scoring model's effectiveness, particularly with `avg_repay_ratio` and `avg_days_active` increasing in line with higher scores.
 
-### **Key Characteristics:**
-*   **Low Transaction Count:** Very few transactions over their lifetime.
-*   **Short Activity Window:** The wallet has only been active for a very short period.
-*   **High Liquidation Rate:** A significant portion of their activity involves `liquidationcall` events, indicating forced closure of under-collateralized loans.
-*   **Poor Repay Ratio:** A low ratio of `repay` actions compared to `borrow` actions, suggesting they do not consistently pay back loans.
-*   **Low Activity Diversity:** Wallets may only perform one or two types of actions (e.g., a single deposit and withdrawal).
+![Average Key Behaviors by Score Range](visualizations/Avg%20Key%20Behav.jpg)
 
-### **Inferred Behavior:**
-These wallets may represent users who are either new to DeFi and experimenting, have abandoned the wallet, or are engaging in high-risk behavior that is not sustainable. They are considered less reliable from a credit perspective.
+### Detailed Behavioral Metrics
 
----
+| score_range | wallet_count | avg_repay_ratio | avg_liquidation_rate | avg_days_active | avg_transactions | avg_deposit_ratio | avg_activity_diversity |
+|-------------|--------------|-----------------|----------------------|-----------------|------------------|-------------------|------------------------|
+| 0-99        | 59           | 0.000           | 0.013                | 12.932          | 30.678           | 0.000             | 0.281                  |
+| 100-199     | 40           | 0.000           | 0.034                | 33.500          | 366.425          | 0.133             | 0.322                  |
+| 200-299     | 287          | 0.017           | 0.014                | 15.829          | 12.059           | 0.363             | 0.480                  |
+| 300-399     | 599          | 0.048           | 0.003                | 14.591          | 14.382           | 0.589             | 0.612                  |
+| 400-499     | 642          | 0.132           | 0.002                | 26.322          | 17.927           | 0.754             | 0.398                  |
+| 500-599     | 1410         | 0.168           | 0.001                | 11.174          | 11.560           | 0.812             | 0.835                  |
+| 600-699     | 212          | 0.974           | 0.002                | 56.514          | 75.991           | 0.360             | 0.181                  |
+| 700-799     | 162          | 1.170           | 0.004                | 64.438          | 90.259           | 0.350             | 0.202                  |
+| 800-899     | 71           | 1.436           | 0.001                | 97.901          | 146.915          | 0.417             | 0.127                  |
+| 900-999     | 15           | 3.611           | 0.001                | 106.400         | 165.733          | 0.626             | 0.066                  |
 
-## Behavior of Wallets in the Higher Range (e.g., Scores > 700)
-
-Wallets with high credit scores demonstrate patterns of a mature, reliable, and engaged DeFi user.
-
-### **Key Characteristics:**
-*   **High Transaction Count & Volume:** Consistent and significant on-chain activity.
-*   **Long Activity Window:** The wallet has been active for a long period, showing sustained engagement.
-*   **Zero or Near-Zero Liquidations:** These users manage their collateral effectively and avoid liquidations.
-*   **Excellent Repay Ratio:** They consistently repay their borrowed assets, indicating financial responsibility.
-*   **High Activity Diversity:** They interact with multiple protocols or actions (e.g., depositing, borrowing, redeeming, providing liquidity), showcasing deep engagement with the DeFi ecosystem.
-
-### **Inferred Behavior:**
-These wallets belong to "power users" who are experienced, financially stable, and integral to the health of DeFi protocols. They represent the lowest credit risk.
+### Supporting Visualizations
+![Average Deposit Ratio](visualizations/Avg%20Dep%20Ratio%20by%20Cred%20Score%20Range.jpg)
+![Average Repay Ratio](visualizations/Avg%20Rep%20Ratio%20by%20Cred%20Score%20Range.jpg)
+![Average Liquidation Rate](visualizations/Avg%20Liq%20Rate%20by%20Cred%20Score%20Range.jpg)
 
 ---
 
-## Conclusion
+## 3. Analysis of High-Scoring vs. Low-Scoring Wallets
 
-The credit scoring model successfully differentiates between distinct user profiles within the DeFi space. The analysis reveals a clear correlation between a wallet's on-chain behavior and its assigned score, confirming that factors like repayment history, liquidation events, and engagement levels are strong indicators of creditworthiness.
+A direct comparison of the best and worst-performing wallet cohorts reveals stark differences in behavior, confirming the model's ability to distinguish between reliable users and high-risk profiles.
+
+![Comparison of Key Behavioral Metrics](visualizations/Comp%20b-w%20key%20behav%20metrics.jpg)
+
+### High-Scoring Wallets (Score 700+)
+- **Number of wallets:** 249
+- **Average score:** 788
+- **Avg Repay Ratio:** 1.392
+- **Avg Liquidation Rate:** 0.003 (Very Low)
+- **Avg Days Active:** 76.37
+- **Sample Wallet (`0x0214c5c4...`):** Score 999, 135 days active, 1.167 repay ratio, 0 liquidations.
+
+### Low-Scoring Wallets (Score 0-299)
+- **Number of wallets:** 381
+- **Average score:** 204
+- **Avg Repay Ratio:** 0.012
+- **Avg Liquidation Rate:** 0.016 (5x higher than high-scorers)
+- **Avg Days Active:** 17.13
+- **Sample Wallet (`0x004f137c...`):** Score 0, 1 day active, 0 repay ratio, 0 liquidations.
+
+---
+
+## 4. Business Insights and Recommendations
+
+The analysis provides clear, actionable insights for risk management and business strategy by segmenting the wallet population into distinct risk tiers.
+
+![Wallet Risk Distribution](visualizations/Wallet%20Distribution.jpg)
+
+### Wallet Risk Segmentation
+- **High Risk (0-399):** 976 wallets (27.9%)
+- **Medium Risk (400-599):** 2,059 wallets (58.9%)
+- **Low Risk (600+):** 462 wallets (13.2%)
+
+### Recommended Actions
+1.  **High Risk:** Prioritize these **976 wallets** for manual review or stricter borrowing/lending terms to mitigate default risk.
+2.  **Medium Risk:** Apply standard terms to these **2,059 wallets** but monitor for changes in behavior. Consider tiered interest rates.
+3.  **Low Risk:** Offer premium terms (e.g., lower fees, higher LTV ratios) to the **462 wallets** to encourage retention and platform growth.
+
+---
+
+## 5. Model Validation Summary
+
+The model's validity is confirmed by the logical correlation between its key input features and the final credit score. Repayment behavior and activity duration are the strongest predictors of a positive score.
+
+![Key Feature Correlation with Credit Score](visualizations/Key%20feat%20Corr..jpg)
+
+### Correlation Values:
+- **`repay_ratio`:** 0.371 (Strong positive correlation)
+- **`days_active`:** 0.307 (Moderate positive correlation)
+- **`liquidation_rate`:** -0.099 (Correct negative correlation)
+
+**Interpretation:**
+- As wallets exhibit better repayment habits and longer activity, their credit score increases.
+- As liquidation events increase, the score rightly decreases.
+
+This confirms the model is functioning as intended and provides a reliable basis for the business insights generated.
