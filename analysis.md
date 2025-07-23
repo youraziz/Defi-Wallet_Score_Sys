@@ -6,7 +6,7 @@ This document provides a detailed analysis of the credit scores assigned to DeFi
 
 The distribution of credit scores across the entire dataset provides a high-level overview of the wallet population. The scores are segmented into ranges of 100 points, from 0 to 1000.
 
-![Credit Score Distribution](visualizations/Wallet-Cred-Score.jpg)
+![Credit Score Distribution](visualizations/Wallet Cred Score.jpg)
 
 ### Score Distribution Table
 
